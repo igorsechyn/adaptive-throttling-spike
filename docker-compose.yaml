@@ -1,0 +1,7 @@
+version: "2.0"
+services:
+  api:
+    image: redis
+    container_name: cache
+    ports:
+      - 6379:6379

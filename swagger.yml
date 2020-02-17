@@ -1,0 +1,58 @@
+swagger: "2.0"
+info:
+  version: "0.0.0"
+  title: "ASCII Chart"
+definitions:
+  errorEntity:
+    additionalProperties: false
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+        - "message"
+parameters:
+  since:
+    name: "since"
+    in: "query"
+    required: true
+    format: "date"
+    type: "string"
+    x-example: "2019-06-01"
+  until:
+    name: "until"
+    in: "query"
+    required: true
+    type: "string"
+    format: "date"
+    x-example: "2019-07-01"
+  symbol:
+    name: "symbol"
+    in: "query"
+    required: true
+    type: "string"
+    x-example: "UBER"
+  price:
+    name: "price"
+    in: "query"
+    required: false
+    type: "string"
+    enum: [open, high, low, close]
+    x-example: "close"
+paths:
+  "/ascii":
+    get:
+      parameters:
+        - $ref: "#/parameters/since"
+        - $ref: "#/parameters/until"
+        - $ref: "#/parameters/symbol"
+        - $ref: "#/parameters/price"
+      produces:
+        - "text/plain"
+      responses:
+        200:
+          description: "The list of all providers"
+        400:
+          description: "Bad request"
+          schema:
+            $ref: '#/definitions/errorEntity'

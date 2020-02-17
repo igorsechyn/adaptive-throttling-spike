@@ -1,0 +1,23 @@
+config:
+  target: "http://localhost:8081"
+  http:
+    pool: 30
+  phases:
+    - duration: 10
+      arrivalRate: 2
+      rampTo: 8
+      name: "Warm up the application"
+    - duration: 10
+      arrivalRate: 8
+      rampTo: 20
+      name: "Ramp up to 20 rps"
+    - duration: 120
+      arrivalRate: 20
+      name: "Sustained max load"
+    - duration: 120
+      arrivalRate: 10
+      name: "Sustained max load"
+scenarios:
+  - flow:
+      - get:
+          url: "/graph"
